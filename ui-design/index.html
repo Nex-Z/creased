@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>折页 — 记录与思考的折痕</title>
+  <meta name="description" content="一个简洁、清新的中文博客，记录技术思考与生活灵感。" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .dot-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background-image: radial-gradient(circle, var(--c-border) 1px, transparent 1px);
+      background-size: 32px 32px; opacity: 0.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="dot-bg"></div>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-icon">折</span><span>折页</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">文章</a>
+        <a href="archive.html">归档</a>
+        <a href="tags.html">标签</a>
+        <a href="about.html">关于</a>
+        <button class="nav-search" id="btn-search" aria-label="搜索">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content animate-in">
+      <h1>记录思考的折痕</h1>
+      <p>每一次思考都是一次折叠，留下痕迹，成为记忆。这里记录技术探索、设计感悟与日常灵感。</p>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  <section class="section">
+    <h2 class="section-title animate-in">置顶推荐</h2>
+    <div class="feed-list">
+      <a href="post.html" class="feed-card featured-badge animate-in animate-delay-1">
+        <div class="card-image">
+          <img src="images/featured-post.png" alt="Featured post" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">从东方美学到数字排版：中文博客的视觉哲学</h3>
+          <p class="card-excerpt">探讨如何将传统东方审美融入现代网页设计，从字体选择、行间距到留白处理，构建一个兼具美感与可读性的中文博客体验。</p>
+          <div class="card-footer">
+            <span style="display:flex; align-items:center; gap:12px;">
+              
+              <span class="post-stats">
+                <span class="stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 2,438</span>
+                <span class="stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 186</span>
+              </span>
+            </span>
+            <span class="read-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              12 分钟
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="feed-card featured-badge no-cover animate-in animate-delay-2">
+        <div class="card-body">
+          <h3 class="card-title">用 Astro 构建内容驱动的静态博客</h3>
+          <p class="card-excerpt">Astro 以其出色的内容优先架构和零 JS 默认策略，成为博客框架的理想选择。本文将带你从零开始搭建。</p>
+          <div class="card-footer">
+            <span style="display:flex; align-items:center; gap:12px;">
+              
+              <span class="post-stats">
+                <span class="stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1,204</span>
+                <span class="stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 89</span>
+              </span>
+            </span>
+            <span class="read-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              10 分钟
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Feed List -->
+  <section class="section">
+    <h2 class="section-title animate-in">最新文章</h2>
+    <div class="feed-list">
+
+      <a href="post.html" class="feed-card animate-in animate-delay-1">
+        <div class="card-image">
+          <img src="images/desk-illustration.png" alt="Post thumbnail" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">用 Astro 构建内容驱动的静态博客</h3>
+          <p class="card-excerpt">Astro 以其出色的内容优先架构和零 JS 默认策略，成为博客框架的理想选择。</p>
+          <div class="card-footer">
+            <span style="display:flex; align-items:center; gap:12px;">
+              
+              <span class="post-stats">
+                <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1,204</span>
+                <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 89</span>
+              </span>
+            </span>
+            <span class="read-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              8 分钟
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a href="post.html" class="feed-card animate-in animate-delay-2">
+        <div class="card-body">
+          <h3 class="card-title">关于「留白」的一些碎片想法</h3>
+          <p class="card-excerpt">少即是多。在设计和写作中，空白不是浪费，而是呼吸的空间。</p>
+          <div class="card-footer">
+            <span style="display:flex; align-items:center; gap:12px;">
+              
+              <span class="post-stats">
+                <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 876</span>
+                <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 52</span>
+              </span>
+            </span>
+            <span class="read-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              5 分钟
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a href="post.html" class="feed-card animate-in animate-delay-3">
+        <div class="card-image">
+          <img src="images/hero-banner.png" alt="Post thumbnail" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">春日散步笔记：公园里的色彩与光线</h3>
+          <p class="card-excerpt">记录一个普通午后在公园散步时捕捉到的光影瞬间和季节感受。</p>
+          <div class="card-footer">
+            <span style="display:flex; align-items:center; gap:12px;">
+              
+              <span class="post-stats">
+                <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 645</span>
+                <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 38</span>
+              </span>
+            </span>
+            <span class="read-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              4 分钟
+            </span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+    <div class="section-footer animate-in animate-delay-4">
+      <a href="archive.html" class="btn-view-all">浏览全部文章 →</a>
+    </div>
+  </section>
+
+  <!-- Minimal List -->
+  <section class="section">
+    <h2 class="section-title animate-in">更早的文章</h2>
+    <div class="post-list-minimal animate-in animate-delay-1">
+      <div class="post-row">
+        <div class="row-left">
+          
+          <span class="row-title">深入理解 CSS Container Queries 的实际应用</span>
+        </div>
+        <div class="row-right">
+          <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 932</span>
+          <span>6 分钟</span>
+          <span>2026-04-20</span>
+        </div>
+      </div>
+      <div class="post-row">
+        <div class="row-left">
+          
+          <span class="row-title">配色方案的情绪表达：从冷色调到暖色调</span>
+        </div>
+        <div class="row-right">
+          <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 714</span>
+          <span>7 分钟</span>
+          <span>2026-04-15</span>
+        </div>
+      </div>
+      <div class="post-row">
+        <div class="row-left">
+          
+          <span class="row-title">写作是一种整理思绪的方式</span>
+        </div>
+        <div class="row-right">
+          <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 521</span>
+          <span>3 分钟</span>
+          <span>2026-04-10</span>
+        </div>
+      </div>
+      <div class="post-row">
+        <div class="row-left">
+          
+          <span class="row-title">View Transitions API：让页面切换如丝般顺滑</span>
+        </div>
+        <div class="row-right">
+          <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1,387</span>
+          <span>10 分钟</span>
+          <span>2026-04-05</span>
+        </div>
+      </div>
+      <div class="post-row">
+        <div class="row-left">
+          
+          <span class="row-title">一个人的咖啡馆下午</span>
+        </div>
+        <div class="row-right">
+          <span class="stat"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 403</span>
+          <span>4 分钟</span>
+          <span>2026-03-28</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-footer animate-in animate-delay-2">
+      <a href="archive.html" class="btn-view-all">前往归档页探索全部文章 →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+        <a href="#">RSS</a>
+      </div>
+      <p>© 2026 折页. 用心记录每一个折痕。</p>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animationPlayState = 'running'; });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-in').forEach(el => { el.style.animationPlayState = 'paused'; observer.observe(el); });
+  </script>
+</body>
+</html>

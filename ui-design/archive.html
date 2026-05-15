@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>归档 — 折页</title>
+  <meta name="description" content="折页 博客文章归档，按时间线浏览所有文章。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-icon">折</span><span>折页</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">文章</a>
+        <a href="archive.html" class="active">归档</a>
+        <a href="tags.html">标签</a>
+        <a href="about.html">关于</a>
+        <button class="nav-search" aria-label="搜索">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Archive Hero -->
+  <section class="archive-hero animate-in">
+    <h1>归档</h1>
+    <p>所有文章，按时间排列</p>
+  </section>
+
+  <!-- Stats -->
+  <div class="archive-stats-top section animate-in animate-delay-1">
+    <div class="archive-stat-item">
+      <span class="stat-number">158</span>
+      <span class="stat-label">天创作</span>
+    </div>
+    <div class="archive-stat-item">
+      <span class="stat-number">28</span>
+      <span class="stat-label">篇文章</span>
+    </div>
+    <div class="archive-stat-item">
+      <span class="stat-number">42.3k</span>
+      <span class="stat-label">总文字</span>
+    </div>
+    <div class="archive-stat-item">
+      <span class="stat-number">12.6k</span>
+      <span class="stat-label">总阅读</span>
+    </div>
+    <div class="archive-stat-item">
+      <span class="stat-number">847</span>
+      <span class="stat-label">总喜欢</span>
+    </div>
+  </div>
+
+  <!-- Archive Content -->
+  <div class="archive-layout section">
+    
+    <!-- Sidebar -->
+    <aside class="archive-sidebar animate-in animate-delay-1">
+      <div class="sidebar-group">
+        <h3 class="sidebar-title">归档索引</h3>
+        
+        <div class="year-nav-item collapsed">
+          <div class="year-header" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="year-label">2026</span>
+            <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="month-grid">
+            <span class="month-cell disabled">1</span>
+            <a href="#year-2026-02" class="month-cell has-posts">2</a>
+            <a href="#year-2026-03" class="month-cell has-posts">3</a>
+            <a href="#year-2026-04" class="month-cell has-posts">4</a>
+            <a href="#year-2026-05" class="month-cell has-posts">5</a>
+            <span class="month-cell disabled">6</span>
+            <span class="month-cell disabled">7</span>
+            <span class="month-cell disabled">8</span>
+            <span class="month-cell disabled">9</span>
+            <span class="month-cell disabled">10</span>
+            <span class="month-cell disabled">11</span>
+            <span class="month-cell disabled">12</span>
+          </div>
+        </div>
+
+        <div class="year-nav-item collapsed">
+          <div class="year-header" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="year-label">2025</span>
+            <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="month-grid">
+            <span class="month-cell disabled">1</span>
+            <span class="month-cell disabled">2</span>
+            <span class="month-cell disabled">3</span>
+            <span class="month-cell disabled">4</span>
+            <span class="month-cell disabled">5</span>
+            <span class="month-cell disabled">6</span>
+            <span class="month-cell disabled">7</span>
+            <span class="month-cell disabled">8</span>
+            <span class="month-cell disabled">9</span>
+            <span class="month-cell disabled">10</span>
+            <a href="#year-2025-11" class="month-cell has-posts">11</a>
+            <a href="#year-2025-12" class="month-cell has-posts">12</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="archive-main animate-in animate-delay-2">
+      <div class="archive-timeline">
+
+        <!-- 2026 -->
+        <div class="timeline-year" id="year-2026">
+      <div class="timeline-year-label">2026</div>
+
+      <div class="timeline-month" id="year-2026-05">
+        <div class="timeline-month-label">五月 · 3 篇</div>
+        <div class="timeline-items">
+          <a href="post.html" class="timeline-item">
+            <span class="timeline-date">05-10</span>
+            <span class="timeline-title">从东方美学到数字排版：中文博客的视觉哲学</span>
+            
+          </a>
+          <a href="post.html" class="timeline-item">
+            <span class="timeline-date">05-08</span>
+            <span class="timeline-title">用 Astro 构建内容驱动的静态博客</span>
+            
+          </a>
+          <a href="post.html" class="timeline-item">
+            <span class="timeline-date">05-03</span>
+            <span class="timeline-title">关于「留白」的一些碎片想法</span>
+            
+          </a>
+        </div>
+      </div>
+
+      <div class="timeline-month" id="year-2026-04">
+        <div class="timeline-month-label">四月 · 5 篇</div>
+        <div class="timeline-items">
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">04-28</span>
+            <span class="timeline-title">春日散步笔记：公园里的色彩与光线</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">04-20</span>
+            <span class="timeline-title">深入理解 CSS Container Queries 的实际应用</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">04-15</span>
+            <span class="timeline-title">配色方案的情绪表达：从冷色调到暖色调</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">04-10</span>
+            <span class="timeline-title">写作是一种整理思绪的方式</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">04-05</span>
+            <span class="timeline-title">View Transitions API：让页面切换如丝般顺滑</span>
+            
+          </a>
+        </div>
+      </div>
+
+      <div class="timeline-month" id="year-2026-03">
+        <div class="timeline-month-label">三月 · 4 篇</div>
+        <div class="timeline-items">
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">03-28</span>
+            <span class="timeline-title">一个人的咖啡馆下午</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">03-20</span>
+            <span class="timeline-title">TypeScript 5.4 新特性速览</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">03-12</span>
+            <span class="timeline-title">重新审视设计系统中的「Token」</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">03-05</span>
+            <span class="timeline-title">给自己写一封信</span>
+            
+          </a>
+        </div>
+      </div>
+
+      <div class="timeline-month" id="year-2026-02">
+        <div class="timeline-month-label">二月 · 3 篇</div>
+        <div class="timeline-items">
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">02-22</span>
+            <span class="timeline-title">Web Components 在生产环境中的实践</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">02-14</span>
+            <span class="timeline-title">日落时分的散步</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">02-05</span>
+            <span class="timeline-title">2026 年的技术趋势与个人思考</span>
+            
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="timeline-year" id="year-2025">
+      <div class="timeline-year-label">2025</div>
+
+      <div class="timeline-month" id="year-2025-12">
+        <div class="timeline-month-label">十二月 · 3 篇</div>
+        <div class="timeline-items">
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">12-28</span>
+            <span class="timeline-title">年终总结：这一年我学到的事情</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">12-15</span>
+            <span class="timeline-title">用 CSS Subgrid 解决复杂布局难题</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">12-03</span>
+            <span class="timeline-title">关于极简主义设计的反思</span>
+            
+          </a>
+        </div>
+      </div>
+
+      <div class="timeline-month" id="year-2025-11">
+        <div class="timeline-month-label">十一月 · 2 篇</div>
+        <div class="timeline-items">
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">11-20</span>
+            <span class="timeline-title">从零搭建一个可访问性友好的组件库</span>
+            
+          </a>
+          <a href="#" class="timeline-item">
+            <span class="timeline-date">11-08</span>
+            <span class="timeline-title">秋天的阅读清单</span>
+
+          </a>
+        </div>
+      </div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+        <a href="#">RSS</a>
+      </div>
+      <p>© 2026 折页. 用心记录每一个折痕。</p>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animationPlayState = 'running'; });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-in').forEach(el => { el.style.animationPlayState = 'paused'; observer.observe(el); });
+  </script>
+</body>
+</html>

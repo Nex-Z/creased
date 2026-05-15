@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>从东方美学到数字排版 — 折页</title>
+  <meta name="description" content="探讨如何将传统东方审美融入现代网页设计，构建兼具美感与可读性的中文博客体验。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-icon">折</span><span>折页</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">文章</a>
+        <a href="archive.html">归档</a>
+        <a href="tags.html">标签</a>
+        <a href="about.html">关于</a>
+        <button class="nav-search" aria-label="搜索">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Article Hero Image -->
+  <div class="article-hero animate-in">
+    <img src="images/featured-post.png" alt="Article cover" />
+  </div>
+
+  <!-- Article Header -->
+  <div class="article-header animate-in animate-delay-1">
+    <h1>从东方美学到数字排版：中文博客的视觉哲学</h1>
+    
+    <div class="article-meta">
+      <div class="author-avatar">折</div>
+      <div class="author-info">
+        <span class="author-name">折页</span>
+        <span class="publish-info">
+          2026 年 5 月 10 日 · 阅读约 12 分钟
+        </span>
+      </div>
+      <div class="article-stats-bar">
+        <span class="stat">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          2,438 阅读
+        </span>
+        <span class="stat">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          186 喜欢
+        </span>
+      </div>
+    </div>
+
+    <div class="article-tags-text">
+      <a href="tags.html#排版" class="hash-tag">排版</a>
+      <a href="tags.html#CSS" class="hash-tag">CSS</a>
+      <a href="tags.html#东方美学" class="hash-tag">东方美学</a>
+      <a href="tags.html#字体" class="hash-tag">字体</a>
+      <a href="tags.html#前端" class="hash-tag">前端</a>
+    </div>
+  </div>
+
+  <!-- TOC Sidebar -->
+  <aside class="toc-sidebar" id="toc-sidebar">
+    <div class="toc-title">目录</div>
+    <ul>
+      <li><a href="#section-1" class="active">为什么关注排版</a></li>
+      <li><a href="#section-2">字体的选择</a></li>
+      <li><a href="#section-3">间距与节奏</a></li>
+      <li><a href="#section-4">留白的艺术</a></li>
+      <li><a href="#section-5">代码与文字共存</a></li>
+      <li><a href="#section-6">写在最后</a></li>
+    </ul>
+  </aside>
+
+  <!-- Article Content -->
+  <article class="article-content animate-in animate-delay-2">
+    <p>在中文互联网上，我们常常看到信息密度极高的页面——广告、弹窗、密密麻麻的文字。然而，阅读体验的本质并不在于填满每一寸屏幕，而在于为读者的目光提供一条清晰、舒适的路径。</p>
+
+    <h2 id="section-1">为什么关注排版</h2>
+    <p>好的排版是隐形的。当读者沉浸在内容中，不会注意到字体大小、行间距或段落间距的存在，这恰恰说明设计做对了。相反，糟糕的排版会让人时刻意识到「阅读」本身，产生疲劳感。</p>
+    <blockquote>"排版不是装饰，而是沟通的基础设施。好的排版让思想自由流动，坏的排版则在思想和读者之间筑起高墙。"</blockquote>
+    <p>对于中文排版而言，我们面临一些独特的挑战：汉字是方块字，没有大小写之分；中文没有单词间的空格；标点符号的处理规则也与西文不同。这些差异意味着，我们不能简单地将西文的排版规则套用在中文上。</p>
+
+    <h2 id="section-2">字体的选择</h2>
+    <p>字体是排版的灵魂。在中文博客的设计中，我通常会选择两种字体搭配：</p>
+    <ul>
+      <li><strong>标题</strong>：使用宋体（Serif）字体，如「思源宋体」或「Noto Serif SC」，传达书卷气和沉稳感</li>
+      <li><strong>正文</strong>：使用黑体（Sans-serif）字体，如「苹方」或「思源黑体」，保证屏幕上的清晰度和可读性</li>
+    </ul>
+    <p>这种搭配既保留了东方审美中的文化质感，又兼顾了数字屏幕上的阅读效率。</p>
+
+    <h2 id="section-3">间距与节奏</h2>
+    <p>中文排版中，行间距（line-height）是一个被低估的属性。由于汉字的视觉重量比拉丁字母大，中文正文通常需要更宽松的行间距——我的经验值是 <code>1.8</code> 到 <code>2.0</code>。</p>
+    <p>段落之间的间距同样重要。不同于英文使用首行缩进（text-indent），现代中文网页更倾向于使用段间距来区分段落，这与 Apple 官网的排版理念一致——用空间来创造层次。</p>
+
+    <h2 id="section-4">留白的艺术</h2>
+    <p>留白（Whitespace）不是空洞，而是设计的呼吸。在东方美学中，「虚」与「实」的对比是一种核心理念——就像水墨画中，未着墨的部分同样构成画面的一部分。</p>
+    <figure>
+      <img src="images/desk-illustration.png" alt="工作台插图" />
+      <figcaption>简洁的工作空间，少即是多</figcaption>
+    </figure>
+    <p>在博客排版中，这种理念体现为：</p>
+    <ol>
+      <li>内容区域不要太宽——正文最佳宽度约为 <code>680px - 720px</code></li>
+      <li>模块之间留出足够的「喘息」空间</li>
+      <li>图片与文字之间保持合理的间距</li>
+      <li>页面四周的 padding 要充裕</li>
+    </ol>
+
+    <h2 id="section-5">代码与文字共存</h2>
+    <p>作为技术博客，代码展示是不可或缺的一部分。如何让代码块与正文和谐共存，是一个设计挑战。</p>
+    <h3>代码块的设计原则</h3>
+    <p>代码块应该在视觉上与正文区分开来，但又不能过于突兀。深色背景是一个经典的选择：</p>
+    <pre><code>/* 一个简洁的设计系统 */
+:root {
+  --font-serif: 'Noto Serif SC', serif;
+  --font-sans: 'Inter', 'PingFang SC', sans-serif;
+  --content-width: 720px;
+  --line-height: 1.9;
+  --color-primary: #3aafa9;
+}
+
+.article-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  line-height: var(--line-height);
+}</code></pre>
+    <p>行内代码则使用更柔和的处理方式——浅色背景加上主色调的文字颜色，如 <code>var(--c-primary)</code>，让它融入正文的阅读节奏中。</p>
+
+    <h2 id="section-6">写在最后</h2>
+    <p>好的博客排版不需要花哨的特效或复杂的布局。它需要的是对细节的关注——字体的选择、间距的调整、色彩的克制、留白的运用。当这些元素和谐地配合在一起，读者就能专注于最重要的东西：你的文字和思想。</p>
+    <p>正如建筑大师密斯·凡德罗所说：<em>"God is in the details."</em> 排版也是如此。</p>
+  </article>
+
+  <!-- Action Bar (点赞/分享/收藏) -->
+  <div class="article-actions">
+    <div class="action-bar">
+      <div class="action-bar-left">
+        <button class="action-btn" id="btn-like" onclick="toggleLike(this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          喜欢 <span class="count" id="like-count">186</span>
+        </button>
+        <button class="action-btn" id="btn-bookmark" onclick="toggleBookmark(this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+          收藏
+        </button>
+      </div>
+      <div class="action-bar-right">
+        <button class="action-btn" onclick="shareArticle()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          分享
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article Navigation (上一篇/下一篇) -->
+  <nav class="article-nav">
+    <a href="#" class="article-nav-item nav-prev">
+      <div class="article-nav-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        上一篇
+      </div>
+      <div class="article-nav-title">用 Astro 构建内容驱动的静态博客</div>
+    </a>
+    <a href="#" class="article-nav-item nav-next">
+      <div class="article-nav-label">
+        下一篇
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+      <div class="article-nav-title">关于「留白」的一些碎片想法</div>
+    </a>
+  </nav>
+
+  <!-- Comment Section -->
+  <div class="comment-section">
+    <div class="comment-header">
+      <h3>评论 <span class="comment-count-badge">24</span></h3>
+    </div>
+
+    <!-- Comment Input -->
+    <div class="comment-input-box">
+      <div class="comment-input-avatar">你</div>
+      <div class="comment-input-wrapper">
+        <textarea class="comment-textarea" placeholder="写下你的想法…"></textarea>
+        <div class="comment-input-footer">
+          <button class="btn-submit-comment">发布评论</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment List -->
+    <div class="comment-list">
+      <div class="comment-item">
+        <div class="comment-avatar avatar-cool">林</div>
+        <div class="comment-body">
+          <div class="comment-author">林小北</div>
+          <div class="comment-time">3 天前</div>
+          <div class="comment-text">写得真好！尤其是关于中文行间距的建议，我之前一直用 1.5 感觉不太舒服，改成 1.8 之后阅读体验好了很多。感谢分享 🙏</div>
+          <div class="comment-actions">
+            <button class="comment-action-btn liked-comment" onclick="toggleCommentLike(this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              12
+            </button>
+            <button class="comment-action-btn">回复</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment-item">
+        <div class="comment-avatar avatar-warm">陈</div>
+        <div class="comment-body">
+          <div class="comment-author">陈墨白</div>
+          <div class="comment-time">5 天前</div>
+          <div class="comment-text">关于留白的部分非常有共鸣。很多中文网站总想把所有空间填满，反而让人觉得压迫。这篇文章本身的排版就是一个很好的示范。</div>
+          <div class="comment-actions">
+            <button class="comment-action-btn" onclick="toggleCommentLike(this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              8
+            </button>
+            <button class="comment-action-btn">回复</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="comment-item">
+        <div class="comment-avatar">苏</div>
+        <div class="comment-body">
+          <div class="comment-author">苏见信</div>
+          <div class="comment-time">1 周前</div>
+          <div class="comment-text">请问代码块使用的是什么字体？JetBrains Mono 在中文环境下表现如何？另外想请教一下深色代码块和浅色正文之间的过渡处理有什么技巧吗？</div>
+          <div class="comment-actions">
+            <button class="comment-action-btn" onclick="toggleCommentLike(this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              5
+            </button>
+            <button class="comment-action-btn">回复</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+        <a href="#">RSS</a>
+      </div>
+      <p>© 2026 折页. 用心记录每一个折痕。</p>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10));
+
+    // TOC active tracking
+    const tocLinks = document.querySelectorAll('.toc-sidebar a');
+    const sections = document.querySelectorAll('.article-content h2[id]');
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('active'));
+          const a = document.querySelector(`.toc-sidebar a[href="#${entry.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => tocObserver.observe(s));
+
+    // Scroll animations
+    const animObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.style.animationPlayState = 'running'; });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-in').forEach(el => { el.style.animationPlayState = 'paused'; animObserver.observe(el); });
+
+    // Like toggle
+    function toggleLike(btn) {
+      btn.classList.toggle('liked');
+      const count = document.getElementById('like-count');
+      const n = parseInt(count.textContent);
+      count.textContent = btn.classList.contains('liked') ? n + 1 : n - 1;
+      const svg = btn.querySelector('svg');
+      svg.setAttribute('fill', btn.classList.contains('liked') ? 'currentColor' : 'none');
+    }
+
+    // Bookmark toggle
+    function toggleBookmark(btn) {
+      btn.classList.toggle('bookmarked');
+      const svg = btn.querySelector('svg');
+      svg.setAttribute('fill', btn.classList.contains('bookmarked') ? 'currentColor' : 'none');
+    }
+
+    // Share
+    function shareArticle() {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('链接已复制到剪贴板');
+      }
+    }
+
+    // Comment like toggle
+    function toggleCommentLike(btn) {
+      const isLiked = btn.classList.contains('liked-comment');
+      btn.classList.toggle('liked-comment');
+      const svg = btn.querySelector('svg');
+      const countText = btn.textContent.trim();
+      const n = parseInt(countText.match(/\d+/)?.[0] || '0');
+      svg.setAttribute('fill', isLiked ? 'none' : 'currentColor');
+      svg.setAttribute('stroke', isLiked ? 'currentColor' : 'none');
+      btn.innerHTML = svg.outerHTML + '\n              ' + (isLiked ? n - 1 : n + 1);
+    }
+  </script>
+</body>
+</html>

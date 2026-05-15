@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>标签 — 折页</title>
+  <meta name="description" content="按标签浏览 折页 博客的所有文章。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-icon">折</span><span>折页</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">文章</a>
+        <a href="archive.html">归档</a>
+        <a href="tags.html" class="active">标签</a>
+        <a href="about.html">关于</a>
+        <button class="nav-search" aria-label="搜索">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Tags Hero -->
+  <section class="tags-hero animate-in">
+    <h1>标签</h1>
+    <p>通过标签探索感兴趣的内容</p>
+  </section>
+
+  <!-- Tag Cloud -->
+  <div class="tag-cloud animate-in animate-delay-1">
+    <a href="#" class="cloud-tag size-lg active" data-tag="CSS" onclick="filterByTag(event, 'CSS')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      CSS <span class="cloud-tag-count">6</span>
+    </a>
+    <a href="#" class="cloud-tag size-lg" data-tag="前端" onclick="filterByTag(event, '前端')">前端 <span class="cloud-tag-count">5</span></a>
+    <a href="#" class="cloud-tag" data-tag="排版" onclick="filterByTag(event, '排版')">排版 <span class="cloud-tag-count">4</span></a>
+    <a href="#" class="cloud-tag" data-tag="Astro" onclick="filterByTag(event, 'Astro')">Astro <span class="cloud-tag-count">3</span></a>
+    <a href="#" class="cloud-tag" data-tag="东方美学" onclick="filterByTag(event, '东方美学')">东方美学 <span class="cloud-tag-count">3</span></a>
+    <a href="#" class="cloud-tag" data-tag="字体" onclick="filterByTag(event, '字体')">字体 <span class="cloud-tag-count">3</span></a>
+    <a href="#" class="cloud-tag" data-tag="TypeScript" onclick="filterByTag(event, 'TypeScript')">TypeScript <span class="cloud-tag-count">2</span></a>
+    <a href="#" class="cloud-tag" data-tag="设计系统" onclick="filterByTag(event, '设计系统')">设计系统 <span class="cloud-tag-count">2</span></a>
+    <a href="#" class="cloud-tag" data-tag="配色" onclick="filterByTag(event, '配色')">配色 <span class="cloud-tag-count">2</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="阅读" onclick="filterByTag(event, '阅读')">阅读 <span class="cloud-tag-count">2</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="咖啡" onclick="filterByTag(event, '咖啡')">咖啡 <span class="cloud-tag-count">1</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="散步" onclick="filterByTag(event, '散步')">散步 <span class="cloud-tag-count">1</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="Web API" onclick="filterByTag(event, 'Web API')">Web API <span class="cloud-tag-count">1</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="摄影" onclick="filterByTag(event, '摄影')">摄影 <span class="cloud-tag-count">1</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="写作" onclick="filterByTag(event, '写作')">写作 <span class="cloud-tag-count">1</span></a>
+    <a href="#" class="cloud-tag size-sm" data-tag="留白" onclick="filterByTag(event, '留白')">留白 <span class="cloud-tag-count">1</span></a>
+  </div>
+
+  <!-- Tag Results -->
+  <div class="tag-results animate-in animate-delay-2" id="tag-results">
+    <div class="tag-results-header">
+      <h2 id="results-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        CSS
+      </h2>
+      <span class="results-count" id="results-count">共 6 篇文章</span>
+    </div>
+
+    <div id="results-list">
+      <a href="post.html" class="tag-result-item">
+        <span class="tag-result-date">2026-05-10</span>
+        <div class="tag-result-body">
+          <div class="tag-result-title">从东方美学到数字排版：中文博客的视觉哲学</div>
+          <div class="tag-result-excerpt">探讨如何将传统东方审美融入现代网页设计，从字体选择、行间距到留白处理…</div>
+          <div class="tag-result-meta post-stats">
+            
+            <span class="stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 2,438</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="tag-result-item">
+        <span class="tag-result-date">2026-04-20</span>
+        <div class="tag-result-body">
+          <div class="tag-result-title">深入理解 CSS Container Queries 的实际应用</div>
+          <div class="tag-result-excerpt">Container Queries 改变了我们思考组件响应式设计的方式…</div>
+          <div class="tag-result-meta post-stats">
+            
+            <span class="stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 932</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="tag-result-item">
+        <span class="tag-result-date">2026-04-15</span>
+        <div class="tag-result-body">
+          <div class="tag-result-title">配色方案的情绪表达：从冷色调到暖色调</div>
+          <div class="tag-result-excerpt">色彩不只是装饰，每一种色调都在讲述一个故事…</div>
+          <div class="tag-result-meta post-stats">
+            
+            <span class="stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 714</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="tag-result-item">
+        <span class="tag-result-date">2026-04-05</span>
+        <div class="tag-result-body">
+          <div class="tag-result-title">View Transitions API：让页面切换如丝般顺滑</div>
+          <div class="tag-result-excerpt">原生浏览器动画 API 让 SPA 式的页面过渡不再需要框架…</div>
+          <div class="tag-result-meta post-stats">
+            
+            <span class="stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1,387</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="tag-result-item">
+        <span class="tag-result-date">2025-12-15</span>
+        <div class="tag-result-body">
+          <div class="tag-result-title">用 CSS Subgrid 解决复杂布局难题</div>
+          <div class="tag-result-excerpt">Subgrid 让嵌套网格布局中的对齐问题迎刃而解…</div>
+          <div class="tag-result-meta post-stats">
+            
+            <span class="stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 856</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="tag-result-item">
+        <span class="tag-result-date">2025-11-20</span>
+        <div class="tag-result-body">
+          <div class="tag-result-title">从零搭建一个可访问性友好的组件库</div>
+          <div class="tag-result-excerpt">好的组件库不仅要好看好用，还要对所有人友好…</div>
+          <div class="tag-result-meta post-stats">
+            
+            <span class="stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 623</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+        <a href="#">RSS</a>
+      </div>
+      <p>© 2026 折页. 用心记录每一个折痕。</p>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10));
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animationPlayState = 'running'; });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-in').forEach(el => { el.style.animationPlayState = 'paused'; observer.observe(el); });
+
+    // Tag filter interaction
+    function filterByTag(e, tagName) {
+      e.preventDefault();
+
+      // Update active state
+      document.querySelectorAll('.cloud-tag').forEach(t => t.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+
+      // Update results header
+      document.getElementById('results-title').innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        ${tagName}
+      `;
+
+      // Get count from the clicked tag
+      const countEl = e.currentTarget.querySelector('.cloud-tag-count');
+      const count = countEl ? countEl.textContent : '0';
+      document.getElementById('results-count').textContent = `共 ${count} 篇文章`;
+    }
+    
+    // Handle hash on load (for direct links like tags.html#CSS)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = decodeURIComponent(window.location.hash.slice(1));
+      if (hash) {
+        const tagEl = document.querySelector(`.cloud-tag[data-tag="${hash}"]`);
+        if (tagEl) {
+          document.querySelectorAll('.cloud-tag').forEach(t => t.classList.remove('active'));
+          tagEl.classList.add('active');
+          document.getElementById('results-title').innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            ${hash}
+          `;
+          const countEl = tagEl.querySelector('.cloud-tag-count');
+          if (countEl) {
+            document.getElementById('results-count').textContent = `共 ${countEl.textContent} 篇文章`;
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
