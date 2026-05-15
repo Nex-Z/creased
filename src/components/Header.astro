@@ -1,0 +1,32 @@
+---
+import { SITE } from '../lib/site';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-logo" aria-label="折页首页">
+      <span class="logo-icon">折</span><span>{SITE.name}</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      {SITE.nav.map((item) => (
+        <a href={item.href} class:list={{ active: isActive(item.href) }}>{item.label}</a>
+      ))}
+      <button class="nav-search" id="btn-search" type="button" aria-label="搜索文章" aria-haspopup="dialog">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>

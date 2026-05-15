@@ -1,0 +1,117 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  estimateReadingTime,
+  formatDate,
+  getNeighborPosts,
+  getPostSlug,
+  getPostUrl,
+  getPublishedPosts,
+} from '../../lib/blog';
+import { SITE } from '../../lib/site';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: getPostSlug(post) },
+    props: { post },
+  }));
+};
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const posts = await getPublishedPosts();
+const { newer, older } = getNeighborPosts(posts, post);
+const cover = post.data.cover ?? '/images/abstract-thumb.png';
+const tocHeadings = headings.filter((heading) => heading.depth === 2);
+---
+
+<BaseLayout
+  title={`${post.data.title} - ${SITE.name}`}
+  description={post.data.description}
+  image={cover}
+>
+  <div class="article-hero animate-in">
+    <img src={cover} alt={post.data.coverAlt ?? post.data.title} />
+  </div>
+
+  <div class="article-header animate-in animate-delay-1">
+    <h1 data-pagefind-meta="title">{post.data.title}</h1>
+
+    <div class="article-meta">
+      <div class="author-avatar">折</div>
+      <div class="author-info">
+        <span class="author-name">{SITE.author}</span>
+        <span class="publish-info">
+          <time datetime={post.data.pubDate.toISOString()} data-pagefind-meta="date">{formatDate(post.data.pubDate)}</time>
+          · 阅读约 {estimateReadingTime(post.body)}
+        </span>
+      </div>
+    </div>
+
+    <div class="article-tags-text">
+      {post.data.tags.map((tag) => (
+        <a href={`/tags/${encodeURIComponent(tag)}/`} class="hash-tag" data-pagefind-filter="tag">{tag}</a>
+      ))}
+    </div>
+  </div>
+
+  {tocHeadings.length > 0 && (
+    <aside class="toc-sidebar" id="toc-sidebar" aria-label="文章目录">
+      <div class="toc-title">目录</div>
+      <ul>
+        {tocHeadings.map((heading, index) => (
+          <li><a href={`#${heading.slug}`} class:list={{ active: index === 0 }}>{heading.text}</a></li>
+        ))}
+      </ul>
+    </aside>
+  )}
+
+  <article class="article-content animate-in animate-delay-2" data-pagefind-body>
+    <Content />
+  </article>
+
+  <nav class="article-nav" aria-label="文章导航">
+    {newer ? (
+      <a href={getPostUrl(newer)} class="article-nav-item nav-prev">
+        <div class="article-nav-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          上一篇
+        </div>
+        <div class="article-nav-title">{newer.data.title}</div>
+      </a>
+    ) : <span></span>}
+    {older ? (
+      <a href={getPostUrl(older)} class="article-nav-item nav-next">
+        <div class="article-nav-label">
+          下一篇
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+        <div class="article-nav-title">{older.data.title}</div>
+      </a>
+    ) : <span></span>}
+  </nav>
+
+  <script>
+    const tocLinks = document.querySelectorAll('.toc-sidebar a');
+    const sections = document.querySelectorAll('.article-content h2[id]');
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach((link) => link.classList.remove('active'));
+          const active = document.querySelector(`.toc-sidebar a[href="#${entry.target.id}"]`);
+          active?.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach((section) => tocObserver.observe(section));
+  </script>
+</BaseLayout>

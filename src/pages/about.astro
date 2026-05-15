@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于 - 折页" description="关于折页博客和作者，了解博客的故事。">
+  <section class="about-hero animate-in">
+    <div class="about-avatar">折</div>
+    <h1>你好，我是 Creased</h1>
+    <p class="about-tagline">一个热爱设计与技术的创作者，相信好的文字值得好的排版。</p>
+    <div class="about-social">
+      <a href="https://github.com/Nex-Z/creased" class="social-link" aria-label="GitHub" rel="noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg>
+      </a>
+      <a href="/rss.xml" class="social-link" aria-label="RSS">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 11a9 9 0 019 9"></path><path d="M4 4a16 16 0 0116 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+      </a>
+    </div>
+  </section>
+
+  <div class="about-content">
+    <div class="about-section animate-in">
+      <h2>关于这里</h2>
+      <p>Creased，意为「折痕」。每一次思考都像是一次折叠，在纸面上留下痕迹，有时清晰，有时模糊，但都是真实的记录。</p>
+      <p>这个博客是一个安静的角落，用来记录技术笔记、设计感悟、阅读心得和日常观察。我希望每一篇文章都经过认真的思考和打磨，而不是流水账式的产出。</p>
+    </div>
+
+    <div class="about-section animate-in">
+      <h2>关于我</h2>
+      <p>一个前端工程师，同时对 UI/UX 设计、排版和东方美学有浓厚兴趣。工作之外，喜欢阅读、散步、喝咖啡，偶尔写写随笔。</p>
+      <p>我相信技术和美学不是对立的：好的代码应该像好的文章一样清晰优雅，好的设计应该像好的建筑一样兼具功能与美感。</p>
+    </div>
+
+    <div class="about-section animate-in">
+      <h2>技能与兴趣</h2>
+      <div class="skill-tags">
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">Astro</span>
+        <span class="skill-tag">CSS / Design System</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">UI/UX 设计</span>
+        <span class="skill-tag">排版</span>
+        <span class="skill-tag">摄影</span>
+        <span class="skill-tag">阅读</span>
+        <span class="skill-tag">咖啡</span>
+      </div>
+    </div>
+
+    <div class="about-section animate-in">
+      <h2>关于这个博客</h2>
+      <p>本站使用 Astro 构建，使用本地 Markdown 管理内容，部署为纯静态文件。所有文章和图片都保存在仓库中，方便迁移、备份和长期归档。</p>
+      <p>所有文章遵循 CC BY-NC-SA 4.0 协议，欢迎非商业性转载，但请注明出处。</p>
+    </div>
+  </div>
+</BaseLayout>

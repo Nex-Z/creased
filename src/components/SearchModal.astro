@@ -1,0 +1,123 @@
+<div class="search-overlay" id="search-overlay" hidden>
+  <section class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="search-dialog-head">
+      <h2 id="search-title">搜索文章</h2>
+      <button class="search-close" id="search-close" type="button" aria-label="关闭搜索">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <label class="search-field">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input id="search-input" type="search" placeholder="输入关键词、标签或文章标题" autocomplete="off" />
+    </label>
+    <div class="search-status" id="search-status">输入至少 2 个字符开始搜索。</div>
+    <div class="search-results" id="search-results"></div>
+  </section>
+</div>
+
+<script>
+  const searchButton = document.getElementById('btn-search');
+  const overlay = document.getElementById('search-overlay');
+  const closeButton = document.getElementById('search-close');
+  const input = document.getElementById('search-input');
+  const status = document.getElementById('search-status');
+  const resultsEl = document.getElementById('search-results');
+  let pagefindModule;
+  let debounceTimer;
+
+  const escapeHtml = (value) => value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  const openSearch = () => {
+    if (!overlay || !input) return;
+    overlay.hidden = false;
+    requestAnimationFrame(() => {
+      overlay.classList.add('is-open');
+      input.focus();
+    });
+  };
+
+  const closeSearch = () => {
+    if (!overlay || !input) return;
+    overlay.classList.remove('is-open');
+    window.setTimeout(() => {
+      overlay.hidden = true;
+      input.value = '';
+      if (resultsEl) resultsEl.innerHTML = '';
+      if (status) status.textContent = '输入至少 2 个字符开始搜索。';
+      searchButton?.focus();
+    }, 180);
+  };
+
+  const loadPagefind = async () => {
+    if (pagefindModule) return pagefindModule;
+    const pagefindUrl = '/pagefind/pagefind.js';
+    pagefindModule = await import(/* @vite-ignore */ pagefindUrl);
+    await pagefindModule.options({ excerptLength: 24 });
+    return pagefindModule;
+  };
+
+  const renderResults = async (query) => {
+    if (!resultsEl || !status) return;
+    const trimmed = query.trim();
+    if (trimmed.length < 2) {
+      resultsEl.innerHTML = '';
+      status.textContent = '输入至少 2 个字符开始搜索。';
+      return;
+    }
+
+    status.textContent = '搜索中...';
+    resultsEl.innerHTML = '';
+
+    try {
+      const pagefind = await loadPagefind();
+      const search = await pagefind.search(trimmed);
+      const results = await Promise.all(search.results.slice(0, 8).map((result) => result.data()));
+
+      if (results.length === 0) {
+        status.textContent = '没有找到相关文章。';
+        return;
+      }
+
+      status.textContent = `找到 ${search.results.length} 条结果`;
+      resultsEl.innerHTML = results.map((result) => {
+        const title = escapeHtml(result.meta?.title || result.url);
+        const date = result.meta?.date ? `<time>${escapeHtml(result.meta.date)}</time>` : '';
+        const tags = Array.isArray(result.filters?.tag)
+          ? result.filters.tag.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')
+          : '';
+        return `
+          <a class="search-result-item" href="${result.url}">
+            <div class="search-result-title">${title}</div>
+            <div class="search-result-excerpt">${result.excerpt}</div>
+            <div class="search-result-meta">${date}${tags}</div>
+          </a>
+        `;
+      }).join('');
+    } catch (error) {
+      status.textContent = '搜索索引尚未生成，请先运行 pnpm build 后预览。';
+    }
+  };
+
+  searchButton?.addEventListener('click', openSearch);
+  closeButton?.addEventListener('click', closeSearch);
+  overlay?.addEventListener('click', (event) => {
+    if (event.target === overlay) closeSearch();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlay && !overlay.hidden) closeSearch();
+  });
+  input?.addEventListener('input', () => {
+    window.clearTimeout(debounceTimer);
+    debounceTimer = window.setTimeout(() => renderResults(input.value), 180);
+  });
+</script>

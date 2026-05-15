@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  estimateWordCount,
+  formatCompactNumber,
+  formatShortDate,
+  getAllTags,
+  getCreationDays,
+  getPostUrl,
+  getPublishedPosts,
+  groupPostsByArchive,
+  monthNames,
+} from '../lib/blog';
+
+const posts = await getPublishedPosts();
+const archive = groupPostsByArchive(posts);
+const tagCount = getAllTags(posts).length;
+const wordCount = posts.reduce((sum, post) => sum + estimateWordCount(post.body), 0);
+const years = archive.map((item) => item.year);
+---
+
+<BaseLayout title="归档 - 折页" description="折页博客文章归档，按时间线浏览所有文章。">
+  <section class="archive-hero animate-in">
+    <h1>归档</h1>
+    <p>所有文章，按时间排列</p>
+  </section>
+
+  <div class="archive-stats-top section animate-in animate-delay-1">
+    <div class="archive-stat-item"><span class="stat-number">{getCreationDays(posts)}</span><span class="stat-label">天创作</span></div>
+    <div class="archive-stat-item"><span class="stat-number">{posts.length}</span><span class="stat-label">篇文章</span></div>
+    <div class="archive-stat-item"><span class="stat-number">{formatCompactNumber(wordCount)}</span><span class="stat-label">总文字</span></div>
+    <div class="archive-stat-item"><span class="stat-number">{tagCount}</span><span class="stat-label">个标签</span></div>
+    <div class="archive-stat-item"><span class="stat-number">{years.length}</span><span class="stat-label">个年份</span></div>
+  </div>
+
+  <div class="archive-layout section">
+    <aside class="archive-sidebar animate-in animate-delay-1">
+      <div class="sidebar-group">
+        <h3 class="sidebar-title">归档索引</h3>
+        {archive.map(({ year, months }) => (
+          <div class="year-nav-item">
+            <div class="year-header">
+              <span class="year-label">{year}</span>
+              <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="month-grid">
+              {Array.from({ length: 12 }, (_, index) => {
+                const hasPosts = months.some((month) => month.month === index);
+                return hasPosts
+                  ? <a href={`#year-${year}-${String(index + 1).padStart(2, '0')}`} class="month-cell has-posts">{index + 1}</a>
+                  : <span class="month-cell disabled">{index + 1}</span>;
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </aside>
+
+    <div class="archive-main animate-in animate-delay-2">
+      <div class="archive-timeline">
+        {archive.map(({ year, months }) => (
+          <div class="timeline-year" id={`year-${year}`}>
+            <div class="timeline-year-label">{year}</div>
+            {months.map(({ month, posts: monthPosts }) => (
+              <div class="timeline-month" id={`year-${year}-${String(month + 1).padStart(2, '0')}`}>
+                <div class="timeline-month-label">{monthNames[month]} · {monthPosts.length} 篇</div>
+                <div class="timeline-items">
+                  {monthPosts.map((post) => (
+                    <a href={getPostUrl(post)} class="timeline-item">
+                      <span class="timeline-date">{formatShortDate(post.data.pubDate)}</span>
+                      <span class="timeline-title">{post.data.title}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

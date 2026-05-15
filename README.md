@@ -1,43 +1,91 @@
-# Astro Starter Kit: Minimal
+# 折页 Creased
+
+一个面向中文阅读体验的 Astro 静态博客。内容使用本地 Markdown 管理，搜索使用 Pagefind 在构建后生成静态索引，适合部署到 Cloudflare Pages，也方便整体迁移和长期归档。
+
+## 技术栈
+
+- Astro 6
+- 本地 Markdown 内容集合
+- Pagefind 静态站内搜索
+- 纯 CSS 设计系统
+- Cloudflare Pages 静态部署
+
+## 本地开发
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+生产构建：
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+pnpm build
+pnpm preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+`pnpm build` 会先运行 `astro build`，再运行 `pagefind --site dist --glob "blog/**/*.html"` 生成搜索索引。
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 写文章
 
-Any static assets, like images, can be placed in the `public/` directory.
+文章放在 `src/content/blog/`，每篇文章是一个 Markdown 文件：
 
-## 🧞 Commands
+```md
+---
+title: "文章标题"
+description: "文章摘要"
+pubDate: 2026-05-10
+tags: ["Astro", "前端"]
+cover: "/images/featured-post.png"
+coverAlt: "封面描述"
+featured: false
+draft: false
+---
 
-All commands are run from the root of the project, from a terminal:
+正文内容。
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+字段说明：
 
-## 👀 Want to learn more?
+- `title`：文章标题
+- `description`：摘要，用于列表、SEO 和 RSS
+- `pubDate`：发布日期
+- `tags`：标签数组
+- `cover` / `coverAlt`：可选封面图和替代文本
+- `featured`：是否进入首页置顶推荐
+- `draft`：设为 `true` 时不会进入首页、归档、标签页、RSS 或搜索
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+图片建议放在 `public/images/`，文章中使用 `/images/xxx.png` 引用。
+
+## 页面
+
+- `/`：首页
+- `/archive/`：文章归档
+- `/tags/`：标签总览
+- `/tags/[tag]/`：标签文章页
+- `/blog/[slug]/`：文章详情
+- `/about/`：关于
+- `/rss.xml`：RSS
+- `/404`：未找到页面
+
+## Cloudflare Pages
+
+推荐配置：
+
+- Production branch：`master`
+- Build command：`pnpm build`
+- Build output directory：`dist`
+- Node.js：`>=22.12.0`
+
+项目保持静态输出，不需要 Cloudflare adapter、数据库、Pages Functions 或付费服务。
+
+## 迁移与归档
+
+站点核心数据都在仓库内：
+
+- 文章：`src/content/blog/*.md`
+- 图片：`public/images/*`
+- 设计系统：`src/styles/global.css`
+- 页面与组件：`src/pages`、`src/components`、`src/layouts`
+
+迁移到其他静态平台时，只需要安装依赖并运行 `pnpm build`，把 `dist` 作为静态产物发布即可。
