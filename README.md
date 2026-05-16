@@ -59,6 +59,23 @@ draft: false
 
 图片建议放在 `public/images/`，文章中使用 `/images/xxx.png` 引用。
 
+### 封面显示方式
+
+首页文章卡片支持两种封面显示方式：
+
+- `cover`：图片铺满卡片区域，适合摄影图、插画、背景感较强的普通封面。
+- `contain`：完整显示图片，不裁切，适合 logo、截图、透明 SVG 或需要完整阅读的图形。
+
+如果不写 `coverFit`，普通图片会默认使用 `cover`，`.svg` 封面会默认使用 `contain`。`contain` 模式会使用柔和的浅灰绿托底、细描边和轻阴影，避免透明图、深色图或浅色图在卡片背景上看不清。
+
+需要手动指定时，在文章 frontmatter 中写：
+
+```md
+cover: "/images/product-shot.png"
+coverAlt: "产品截图"
+coverFit: "contain"
+```
+
 ## 页面
 
 - `/`：首页
