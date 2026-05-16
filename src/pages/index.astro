@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { estimateReadingTime, formatShortDate, getPostUrl, getPublishedPosts } from '../lib/blog';
+import { formatDate, getPostUrl, getPublishedPosts } from '../lib/blog';
 import { SITE } from '../lib/site';
 
 const posts = await getPublishedPosts();
@@ -50,8 +50,7 @@ const earlierPosts = posts.filter((post) => !post.data.featured).slice(3, 8);
             <span class="row-title">{post.data.title}</span>
           </div>
           <div class="row-right">
-            <span>{estimateReadingTime(post.body)}</span>
-            <span>{formatShortDate(post.data.pubDate)}</span>
+            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
           </div>
         </a>
       ))}

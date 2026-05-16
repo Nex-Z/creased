@@ -425,10 +425,11 @@ ul, ol { list-style: none; }
   color: var(--c-text-muted);
 }
 
-.feed-card .card-footer .read-time {
+.feed-card .card-footer .card-date {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 /* --- Minimal Post Row (无图列表) --- */
@@ -1800,70 +1801,9 @@ ul, ol { list-style: none; }
   color: var(--c-text-muted);
 }
 
-.tag-result-item {
-  display: flex;
-  align-items: flex-start;
+.tag-results-list {
+  display: grid;
   gap: var(--space-lg);
-  padding: var(--space-lg) 0;
-  border-bottom: 1px solid var(--c-border-light);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  text-decoration: none;
-  color: inherit;
-}
-
-.tag-result-item:last-child {
-  border-bottom: none;
-}
-
-.tag-result-item:hover {
-  padding-left: var(--space-sm);
-}
-
-.tag-result-date {
-  font-size: 0.78rem;
-  color: var(--c-text-muted);
-  min-width: 72px;
-  padding-top: 3px;
-  flex-shrink: 0;
-}
-
-.tag-result-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.tag-result-title {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  font-weight: 500;
-  margin-bottom: 4px;
-  transition: color var(--transition-fast);
-}
-
-.tag-result-item:hover .tag-result-title {
-  color: var(--c-primary);
-}
-
-.tag-result-excerpt {
-  font-size: 0.85rem;
-  color: var(--c-text-muted);
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.tag-result-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin-top: var(--space-xs);
-}
-
-.tag-result-meta span {
-  font-size: 0.78rem;
-  color: var(--c-text-muted);
 }
 
 .compact-tags {

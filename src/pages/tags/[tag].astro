@@ -1,7 +1,8 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { formatShortDate, getAllTags, getPostUrl, getPublishedPosts } from '../../lib/blog';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getAllTags, getPublishedPosts } from '../../lib/blog';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPublishedPosts();
@@ -44,16 +45,9 @@ const tagSize = (count: number) => (count >= 4 ? 'size-lg' : count <= 1 ? 'size-
       <span class="results-count">共 {tagPosts.length} 篇文章</span>
     </div>
 
-    <div>
-      {tagPosts.map((post) => (
-        <a href={getPostUrl(post)} class="tag-result-item">
-          <span class="tag-result-date">{formatShortDate(post.data.pubDate)}</span>
-          <div class="tag-result-body">
-            <div class="tag-result-title">{post.data.title}</div>
-            <div class="tag-result-excerpt">{post.data.description}</div>
-            <div class="tag-result-meta">{post.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}</div>
-          </div>
-        </a>
+    <div class="tag-results-list">
+      {tagPosts.map((post, index) => (
+        <ArticleCard post={post} delay={(index % 4) + 1} />
       ))}
     </div>
   </div>
