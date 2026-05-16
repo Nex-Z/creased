@@ -38,14 +38,20 @@ const years = archive.map((item) => item.year);
       <div class="sidebar-group">
         <h3 class="sidebar-title">归档索引</h3>
         {archive.map(({ year, months }) => (
-          <div class="year-nav-item">
-            <div class="year-header">
+          <div class="year-nav-item collapsed">
+            <button
+              class="year-header"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`archive-months-${year}`}
+              data-archive-year-toggle
+            >
               <span class="year-label">{year}</span>
               <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-            </div>
-            <div class="month-grid">
+            </button>
+            <div class="month-grid" id={`archive-months-${year}`}>
               {Array.from({ length: 12 }, (_, index) => {
                 const hasPosts = months.some((month) => month.month === index);
                 return hasPosts
@@ -81,4 +87,16 @@ const years = archive.map((item) => item.year);
       </div>
     </div>
   </div>
+
+  <script>
+    document.querySelectorAll('[data-archive-year-toggle]').forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const item = toggle.closest('.year-nav-item');
+        if (!item) return;
+
+        const isCollapsed = item.classList.toggle('collapsed');
+        toggle.setAttribute('aria-expanded', String(!isCollapsed));
+      });
+    });
+  </script>
 </BaseLayout>
