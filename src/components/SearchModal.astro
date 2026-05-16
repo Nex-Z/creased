@@ -28,7 +28,9 @@
   const input = document.getElementById('search-input');
   const status = document.getElementById('search-status');
   const resultsEl = document.getElementById('search-results');
+  const usePagefind = !import.meta.env.DEV;
   let pagefindModule;
+  let fallbackIndex;
   let debounceTimer;
 
   const escapeHtml = (value) => value
@@ -59,11 +61,81 @@
   };
 
   const loadPagefind = async () => {
+    if (!usePagefind) throw new Error('Pagefind is generated during production builds.');
     if (pagefindModule) return pagefindModule;
     const pagefindUrl = '/pagefind/pagefind.js';
     pagefindModule = await import(/* @vite-ignore */ pagefindUrl);
     await pagefindModule.options({ excerptLength: 24 });
     return pagefindModule;
+  };
+
+  const loadFallbackIndex = async () => {
+    if (fallbackIndex) return fallbackIndex;
+    const response = await fetch('/search-index.json');
+    if (!response.ok) throw new Error('Search index unavailable');
+    fallbackIndex = await response.json();
+    return fallbackIndex;
+  };
+
+  const makeFallbackExcerpt = (post, query) => {
+    const source = `${post.description} ${post.body}`.replace(/[#*_`>\-[\]()]/g, ' ').replace(/\s+/g, ' ').trim();
+    const lowerSource = source.toLocaleLowerCase();
+    const lowerQuery = query.toLocaleLowerCase();
+    const index = lowerSource.indexOf(lowerQuery);
+    const start = Math.max(0, index - 36);
+    const excerpt = source.slice(start, start + 110);
+    const safe = escapeHtml(`${start > 0 ? '...' : ''}${excerpt}${start + 110 < source.length ? '...' : ''}`);
+    return safe.replace(new RegExp(escapeHtml(query).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '<mark>$&</mark>');
+  };
+
+  const searchFallback = async (query) => {
+    const index = await loadFallbackIndex();
+    const normalized = query.toLocaleLowerCase();
+    return index
+      .map((post) => {
+        const haystack = [post.title, post.description, post.date, ...(post.tags ?? []), post.body]
+          .join(' ')
+          .toLocaleLowerCase();
+        const titleHit = post.title.toLocaleLowerCase().includes(normalized);
+        const tagHit = (post.tags ?? []).some((tag) => tag.toLocaleLowerCase().includes(normalized));
+        const score = (titleHit ? 4 : 0) + (tagHit ? 3 : 0) + (haystack.includes(normalized) ? 1 : 0);
+        return { post, score };
+      })
+      .filter((result) => result.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map(({ post }) => ({
+        url: post.url,
+        title: post.title,
+        excerpt: makeFallbackExcerpt(post, query),
+        date: post.date,
+        tags: post.tags ?? [],
+      }));
+  };
+
+  const renderSearchItems = (items, total) => {
+    if (!resultsEl || !status) return;
+    if (items.length === 0) {
+      status.textContent = '没有找到相关文章。';
+      resultsEl.innerHTML = '';
+      return;
+    }
+
+    status.textContent = `找到 ${total} 条结果`;
+    resultsEl.innerHTML = items.map((item) => {
+      const title = escapeHtml(item.title || item.url);
+      const date = item.date ? `<time>${escapeHtml(item.date)}</time>` : '';
+      const tags = Array.isArray(item.tags)
+        ? item.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')
+        : '';
+      return `
+        <a class="search-result-item" href="${item.url}">
+          <div class="search-result-title">${title}</div>
+          <div class="search-result-excerpt">${item.excerpt}</div>
+          <div class="search-result-meta">${date}${tags}</div>
+        </a>
+      `;
+    }).join('');
   };
 
   const renderResults = async (query) => {
@@ -82,29 +154,16 @@
       const pagefind = await loadPagefind();
       const search = await pagefind.search(trimmed);
       const results = await Promise.all(search.results.slice(0, 8).map((result) => result.data()));
-
-      if (results.length === 0) {
-        status.textContent = '没有找到相关文章。';
-        return;
-      }
-
-      status.textContent = `找到 ${search.results.length} 条结果`;
-      resultsEl.innerHTML = results.map((result) => {
-        const title = escapeHtml(result.meta?.title || result.url);
-        const date = result.meta?.date ? `<time>${escapeHtml(result.meta.date)}</time>` : '';
-        const tags = Array.isArray(result.filters?.tag)
-          ? result.filters.tag.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')
-          : '';
-        return `
-          <a class="search-result-item" href="${result.url}">
-            <div class="search-result-title">${title}</div>
-            <div class="search-result-excerpt">${result.excerpt}</div>
-            <div class="search-result-meta">${date}${tags}</div>
-          </a>
-        `;
-      }).join('');
+      renderSearchItems(results.map((result) => ({
+        url: result.url,
+        title: result.meta?.title || result.url,
+        excerpt: result.excerpt,
+        date: result.meta?.date,
+        tags: result.filters?.tag,
+      })), search.results.length);
     } catch (error) {
-      status.textContent = '搜索索引尚未生成，请先运行 pnpm build 后预览。';
+      const results = await searchFallback(trimmed);
+      renderSearchItems(results, results.length);
     }
   };
 

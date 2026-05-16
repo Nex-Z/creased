@@ -1885,6 +1885,10 @@ ul, ol { list-style: none; }
   transition: opacity var(--transition-fast);
 }
 
+.search-overlay[hidden] {
+  display: none;
+}
+
 .search-overlay.is-open {
   opacity: 1;
 }
