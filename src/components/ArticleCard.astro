@@ -10,11 +10,12 @@ interface Props {
 
 const { post, featured = false, delay = 1 } = Astro.props;
 const delayClass = `animate-delay-${Math.min(Math.max(delay, 1), 4)}`;
+const coverFit = post.data.coverFit ?? (post.data.cover?.toLowerCase().endsWith('.svg') ? 'contain' : 'cover');
 ---
 
 <a href={getPostUrl(post)} class:list={['feed-card', { 'featured-badge': featured }, 'animate-in', delayClass]}>
   {post.data.cover && (
-    <div class="card-image">
+    <div class:list={['card-image', `fit-${coverFit}`]}>
       <img src={post.data.cover} alt={post.data.coverAlt ?? post.data.title} loading="lazy" />
     </div>
   )}

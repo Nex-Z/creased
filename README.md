@@ -38,6 +38,7 @@ pubDate: 2026-05-10
 tags: ["Astro", "前端"]
 cover: "/images/featured-post.png"
 coverAlt: "封面描述"
+coverFit: "cover"
 featured: false
 draft: false
 ---
@@ -52,6 +53,7 @@ draft: false
 - `pubDate`：发布日期
 - `tags`：标签数组
 - `cover` / `coverAlt`：可选封面图和替代文本
+- `coverFit`：封面在列表卡片中的显示方式，可选 `cover` 或 `contain`；不填时普通图片默认 `cover`，SVG/logo 默认 `contain`
 - `featured`：是否进入首页置顶推荐
 - `draft`：设为 `true` 时不会进入首页、归档、标签页、RSS 或搜索
 

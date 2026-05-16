@@ -10,6 +10,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
+    coverFit: z.enum(['cover', 'contain']).optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
