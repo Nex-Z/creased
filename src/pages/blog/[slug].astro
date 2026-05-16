@@ -25,7 +25,7 @@ const { Content, headings } = await render(post);
 const posts = await getPublishedPosts();
 const { newer, older } = getNeighborPosts(posts, post);
 const cover = post.data.cover ?? '/images/abstract-thumb.png';
-const tocHeadings = headings.filter((heading) => heading.depth === 2);
+const tocHeadings = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 6);
 ---
 
 <BaseLayout
@@ -63,7 +63,9 @@ const tocHeadings = headings.filter((heading) => heading.depth === 2);
       <div class="toc-title">目录</div>
       <ul>
         {tocHeadings.map((heading, index) => (
-          <li><a href={`#${heading.slug}`} class:list={{ active: index === 0 }}>{heading.text}</a></li>
+          <li class={`toc-depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`} class:list={{ active: index === 0 }}>{heading.text}</a>
+          </li>
         ))}
       </ul>
     </aside>
@@ -100,18 +102,161 @@ const tocHeadings = headings.filter((heading) => heading.depth === 2);
     ) : <span></span>}
   </nav>
 
+  <div class="image-lightbox" id="image-lightbox" hidden>
+    <button class="lightbox-backdrop" type="button" data-lightbox-close aria-label="关闭图片预览"></button>
+    <figure class="lightbox-panel" role="dialog" aria-modal="true" aria-label="图片预览">
+      <button class="lightbox-close" type="button" data-lightbox-close aria-label="关闭图片预览">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <img id="lightbox-image" alt="" />
+      <figcaption class="lightbox-caption" id="lightbox-caption" hidden></figcaption>
+    </figure>
+  </div>
+
   <script>
     const tocLinks = document.querySelectorAll('.toc-sidebar a');
-    const sections = document.querySelectorAll('.article-content h2[id]');
+    const headingSelector = ['h2', 'h3', 'h4', 'h5', 'h6']
+      .map((heading) => `.article-content ${heading}[id]`)
+      .join(', ');
+    const sections = document.querySelectorAll(headingSelector);
+    const normalizeHash = (hash) => {
+      const value = hash.startsWith('#') ? hash.slice(1) : hash;
+
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return value;
+      }
+    };
     const tocObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           tocLinks.forEach((link) => link.classList.remove('active'));
-          const active = document.querySelector(`.toc-sidebar a[href="#${entry.target.id}"]`);
+          const active = Array.from(tocLinks).find((link) => {
+            const href = link.getAttribute('href');
+            return href ? normalizeHash(href) === entry.target.id : false;
+          });
           active?.classList.add('active');
         }
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
     sections.forEach((section) => tocObserver.observe(section));
+
+    const copyText = async (text) => {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.top = '-9999px';
+      document.body.append(textarea);
+      textarea.select();
+
+      const copied = document.execCommand('copy');
+      textarea.remove();
+      if (!copied) throw new Error('Copy command failed');
+    };
+
+    document.querySelectorAll('.article-content pre').forEach((pre) => {
+      const code = pre.querySelector('code');
+      if (!code || pre.parentElement?.classList.contains('code-block')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy-button';
+      button.setAttribute('aria-label', '复制代码');
+      button.setAttribute('aria-live', 'polite');
+      button.textContent = '复制';
+
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.append(button, pre);
+
+      button.addEventListener('click', async () => {
+        try {
+          await copyText(code.textContent ?? '');
+          button.textContent = '已复制';
+          button.classList.add('is-copied');
+        } catch {
+          button.textContent = '复制失败';
+          button.classList.add('is-error');
+        }
+
+        window.setTimeout(() => {
+          button.textContent = '复制';
+          button.classList.remove('is-copied', 'is-error');
+        }, 1800);
+      });
+    });
+
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxCloseButtons = document.querySelectorAll('[data-lightbox-close]');
+    let activeLightboxImage = null;
+
+    if (lightbox && lightboxImage instanceof HTMLImageElement && lightboxCaption) {
+      const openLightbox = (image) => {
+        if (!(image instanceof HTMLImageElement)) return;
+
+        activeLightboxImage = image;
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt;
+
+        if (image.alt) {
+          lightboxCaption.textContent = image.alt;
+          lightboxCaption.hidden = false;
+        } else {
+          lightboxCaption.textContent = '';
+          lightboxCaption.hidden = true;
+        }
+
+        lightbox.hidden = false;
+        document.body.classList.add('lightbox-open');
+        lightbox.querySelector('.lightbox-close')?.focus({ preventScroll: true });
+      };
+
+      const closeLightbox = () => {
+        lightbox.hidden = true;
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.removeAttribute('src');
+        activeLightboxImage?.focus({ preventScroll: true });
+        activeLightboxImage = null;
+      };
+
+      document.querySelectorAll('.article-content img').forEach((image) => {
+        if (!(image instanceof HTMLImageElement)) return;
+
+        image.classList.add('is-zoomable');
+        image.tabIndex = 0;
+        image.setAttribute('role', 'button');
+        image.setAttribute('aria-label', image.alt ? `查看大图：${image.alt}` : '查看大图');
+        image.addEventListener('click', (event) => {
+          event.preventDefault();
+          openLightbox(image);
+        });
+        image.addEventListener('keydown', (event) => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          openLightbox(image);
+        });
+      });
+
+      lightboxCloseButtons.forEach((button) => {
+        button.addEventListener('click', closeLightbox);
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
+      });
+    }
   </script>
 </BaseLayout>
